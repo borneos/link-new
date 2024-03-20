@@ -11,6 +11,7 @@ import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import { usePathname, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { Separator } from '@/components/ui/separator';
 
 export default function Dashboard(props) {
   console.log("🚀 ~ Dashboard ~ props:", props)
@@ -32,7 +33,12 @@ export default function Dashboard(props) {
       <Layout type='main'>
         <Header {...props} />
         <Container>
-          <div className=''>Dashboard</div>
+          <div className="py-3 md:py-4 space-y-6 flex content-center">
+            <div className='px-3 md:px-0'>
+              <h3 className="text-lg font-medium">Dashboard</h3>
+            </div>
+          </div>
+          <Separator />
         </Container>
       </Layout>
     </>

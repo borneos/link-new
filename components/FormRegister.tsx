@@ -34,9 +34,13 @@ const FormRegister: React.FC<FormRegisterProps> = ({ className, ...props }: User
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showRePassword, setShowRePassword] = useState<boolean>(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+  const toggleRePasswordVisibility = () => {
+    setShowRePassword(!showRePassword);
   };
 
   // const FormSchema = z.object({
@@ -86,7 +90,7 @@ const passwordWithConfirm = makePasswordWithConfirm()
   });
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-
+    setIsLoading(true);
     const data = {
       name: values.fullname,
       email: values.email,
@@ -100,8 +104,6 @@ const passwordWithConfirm = makePasswordWithConfirm()
       },
       body: JSON.stringify(data)
     })
-    
-    console.log("🚀 ~ onSubmit ~ result:", result)
 
     if(result.status === RESPONSE_CODE.SUCCESS_201) {
       toast.success('Berhasil membuat akun', {
@@ -114,6 +116,7 @@ const passwordWithConfirm = makePasswordWithConfirm()
         progress: undefined,
         theme: "colored",
       });
+      setIsLoading(false);
       router.push('/login')
     }
 
@@ -128,40 +131,8 @@ const passwordWithConfirm = makePasswordWithConfirm()
         progress: undefined,
         theme: "colored",
       });
+      setIsLoading(false);
     }
-    // setIsLoading(true)
-    // const signInData =  await('credentials', {
-    //   email: values.email,
-    //   password: values.password,
-    //   redirect: false,
-    // })
-
-    // if(signInData?.error){
-    //   toast.error(`Error: ${signInData.error}, Terjadi kegagalan`, {
-    //     position: "top-right",
-    //     autoClose: 3000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "colored",
-    //   });
-    //   setIsLoading(false)
-    // }else{
-    //   setIsLoading(false)
-    //   toast.success('Berhasil masuk', {
-    //     position: "top-right",
-    //     autoClose: 3000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "colored",
-    //   });
-    //   router.push('/dashboard')
-    // }
   };
 
   return (
@@ -209,12 +180,25 @@ const passwordWithConfirm = makePasswordWithConfirm()
               <FormItem className='mt-2'>
                 <FormLabel className='text-default font-semibold'>Password</FormLabel>
                 <FormControl>
-                  <Input
-                    disabled={isLoading}
-                    type='password'
-                    placeholder='Enter your password'
-                    {...field}
-                  />
+                  <div className='relative'>
+                    <Input
+                      disabled={isLoading}
+                      type={showPassword ? 'text' : 'password'}
+                      placeholder='Enter your password'
+                      {...field}
+                    />
+                    <Button 
+                      variant='ghost'
+                      type='button' 
+                      className='absolute translate-y-[-100%] right-0'
+                      onClick={togglePasswordVisibility}
+                    >
+                      {showPassword ?
+                      <Icons.eyeOff className="h-4 w-4" />
+                      : <Icons.eye className="h-4 w-4" />
+                      }
+                    </Button>
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -227,12 +211,26 @@ const passwordWithConfirm = makePasswordWithConfirm()
               <FormItem className='mt-2'>
                 <FormLabel className='text-default font-semibold'>Re-Password</FormLabel>
                 <FormControl>
-                  <Input
-                    disabled={isLoading}
-                    type='password'
-                    placeholder='Enter your re-password'
-                    {...field}
-                  />
+                  <div className='relative'>
+                    <Input
+                      disabled={isLoading}
+                      type={showRePassword ? 'text' : 'password'}
+                      placeholder='Enter your re-password'
+                      {...field}
+                    />
+                    <Button 
+                      variant='ghost'
+                      type='button' 
+                      className='absolute translate-y-[-100%] right-0'
+                      onClick={toggleRePasswordVisibility}
+                    >
+                      {showRePassword ?
+                      <Icons.eyeOff className="h-4 w-4" />
+                      : <Icons.eye className="h-4 w-4" />
+                      }
+                    </Button>
+                  </div>
+                  
                 </FormControl>
                 <FormMessage />
               </FormItem>

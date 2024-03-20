@@ -37,15 +37,6 @@ const FormLogin: React.FC<FormLoginProps> = ({ className, ...props }: UserAuthFo
     setShowPassword(!showPassword);
   };
 
-  // async function onSubmit(event: React.SyntheticEvent) {
-  //   event.preventDefault()
-  //   setIsLoading(true)
-
-  //   setTimeout(() => {
-  //     setIsLoading(false)
-  //   }, 3000)
-  // }
-
   const FormSchema = z.object({
     email: z.string().min(1, 'Email tidak valid').email('Email tidak valid, format wajib (@mail.com)'),
     password: z
@@ -127,24 +118,24 @@ const FormLogin: React.FC<FormLoginProps> = ({ className, ...props }: UserAuthFo
               <FormItem className='mt-2'>
                 <FormLabel className='text-default font-semibold'>Password</FormLabel>
                 <FormControl>
-                  < div className='relative'>
-                  <Input
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder='Enter your password'
-                    {...field}
-                    disabled={isLoading}
-                  />
-                  <Button 
-                    variant='ghost'
-                    type='button' 
-                    className='absolute translate-y-[-100%] right-0'
-                    onClick={togglePasswordVisibility}
-                  >
-                    {showPassword ?
-                    <Icons.eyeOff className="h-4 w-4" />
-                    : <Icons.eye className="h-4 w-4" />
-                    }
-                  </Button>
+                  <div className='relative'>
+                    <Input
+                      type={showPassword ? 'text' : 'password'}
+                      placeholder='Enter your password'
+                      {...field}
+                      disabled={isLoading}
+                    />
+                    <Button 
+                      variant='ghost'
+                      type='button' 
+                      className='absolute translate-y-[-100%] right-0'
+                      onClick={togglePasswordVisibility}
+                    >
+                      {showPassword ?
+                      <Icons.eyeOff className="h-4 w-4" />
+                      : <Icons.eye className="h-4 w-4" />
+                      }
+                    </Button>
                   </div>
                   
                 </FormControl>

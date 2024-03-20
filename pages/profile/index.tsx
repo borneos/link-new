@@ -9,6 +9,7 @@ import Container from '@/components/Container';
 import Image from 'next/image';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import { Separator } from '@/components/ui/separator';
 
 export default function Profile(props) {
   return (
@@ -29,7 +30,12 @@ export default function Profile(props) {
       <Layout type='main'>
         <Header {...props} />
         <Container>
-          <div className=''>Profile</div>
+          <div className="py-3 md:py-4 space-y-6 flex content-center">
+            <div className='px-3 md:px-0'>
+              <h3 className="text-lg font-medium">Profile</h3>
+            </div>
+          </div>
+          <Separator />
         </Container>
       </Layout>
     </>
