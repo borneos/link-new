@@ -18,6 +18,16 @@ npm run dev
 yarn dev
 ```
 
+Third, for generate migration & push to DB:
+```bash
+yarn prisma studio
+# for run prisma studio (preview table db from browser client, make sure your db already connected)
+yarn prisma migrate dev
+# for generate migrate you can see all migration on folder prisma->migrations
+yarn prisma db push
+# for pushing your migration to db server
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result tada~~😉.
 
 ## Structure App
