@@ -18,6 +18,7 @@ model user {
   image String?
   password String?
   accounts account[]
+  posts post[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
@@ -48,4 +49,18 @@ model password_reset_token {
   expires DateTime
 
   @@unique([email, token])
+}
+
+model post {
+  id String @id @default(cuid())
+  prefix String @unique
+  value String?
+  url String?
+  type String?
+  visited Int?
+  user_id String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  user user @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }

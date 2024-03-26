@@ -1,20 +1,23 @@
 import React from 'react';
 import HeadMain from '@/components/HeadMain';
-import { MainNav } from '@/components/ui/main-nav';
-import { Sidebar } from '@/components/ui/sidebar';
 import images from '@/constant/images';
 import Layout from '@/components/Layout';
-import { Button } from '@/components/ui/button';
-import Container from '@/components/Container';
-import Image from 'next/image';
-import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import { usePathname, useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
-import { Separator } from '@/components/ui/separator';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { usePostGet } from '@/hooks/usePostsGet';
+import LayoutDashboard from '@/components/LayoutDashboard';
 
 export default function Dashboard(props) {
-  console.log("🚀 ~ Dashboard ~ props:", props)
+  const {data, isLoading, error} = usePostGet();
   return (
     <>
       <HeadMain
@@ -32,14 +35,35 @@ export default function Dashboard(props) {
       />
       <Layout type='main'>
         <Header {...props} />
-        <Container>
-          <div className="py-3 md:py-4 space-y-6 flex content-center">
-            <div className='px-3 md:px-0'>
-              <h3 className="text-lg font-medium">Dashboard</h3>
-            </div>
+        <LayoutDashboard>
+          <div className=''>
+            <h1 className='text-gray-700'>Post</h1>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[100px]">#</TableHead>
+                  <TableHead>Prefix</TableHead>
+                  <TableHead>Values</TableHead>
+                  <TableHead>URL</TableHead>
+                  <TableHead>Visited</TableHead>
+                  <TableHead className="text-right">Action</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data?.data?.map((post) => (
+                  <TableRow key={post.id} className=''>
+                    <TableCell className="font-medium">{post.id}</TableCell>
+                    <TableCell>{post.prefix}</TableCell>
+                    <TableCell>{post.values}</TableCell>
+                    <TableCell>{post.url}</TableCell>
+                    <TableCell>{post.visited}</TableCell>
+                    <TableCell className="text-right">Edit | Delete</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
-          <Separator />
-        </Container>
+        </LayoutDashboard>
       </Layout>
     </>
   );

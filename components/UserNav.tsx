@@ -13,6 +13,7 @@ import {
 } from "./ui/dropdown-menu"
 import { signOut } from "next-auth/react"
 import { useSession } from "next-auth/react"
+import { Icons } from "./Icons"
 
 const avatar = 'https://res.cloudinary.com/borneos-co/image/upload/v1710511791/borneos-link/logo/user_soqhrh.webp';
 
@@ -22,9 +23,9 @@ export function UserNav() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-          <Avatar className="h-9 w-9">
-            <AvatarImage src={avatar} alt="profile-borneos" />
-            <AvatarFallback>BR</AvatarFallback>
+          <Avatar className="h-8 w-8">
+            {/* <AvatarImage src={avatar} alt="profile-borneos" /> */}
+            <AvatarFallback>{data?.user?.fullname ? data?.user?.fullname?.toUpperCase().substring(0, 2) : '-'}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>

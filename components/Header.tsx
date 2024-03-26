@@ -24,8 +24,8 @@ const Header: React.FC<HeaderProps> = (props) => {
             <Image 
               src={`https://res.cloudinary.com/borneos-co/image/upload/v1709720891/borneos-link/logo/borneoslink_zzmllq.svg`}
               alt='logo-borneos-link'
-              width='100'
-              height='50'
+              width='90'
+              height='40'
             />
           </Link>
           <div className='flex gap-2 items-center'>

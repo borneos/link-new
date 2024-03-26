@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import { hash } from "bcrypt";
 import { db } from "@/libs/db";
 import { NextApiRequest, NextApiResponse } from "next";
